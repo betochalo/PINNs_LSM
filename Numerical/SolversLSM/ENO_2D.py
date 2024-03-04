@@ -1,23 +1,29 @@
 import numpy as np
+from numba import njit
+
 
 # Differences
-
+@njit
 def delta_plus_x(phi, k):
     return phi[k + 1, 3:-3] - phi[k, 3:-3]
 
 
+@njit
 def delta_minus_x(phi, k):
     return phi[k, 3:-3] - phi[k - 1, 3:-3]
 
 
+@njit
 def delta_plus_y(phi, l):
     return phi[3:-3, l + 1] - phi[3:-3, l]
 
 
+@njit
 def delta_minus_y(phi, l):
     return phi[3:-3, l] - phi[3:-3, l - 1]
 
 
+@njit
 def diff_bx(phi, dx):
     phi0_x = np.zeros(phi.shape)
     phi1_x = np.zeros(phi.shape)
@@ -59,6 +65,7 @@ def diff_bx(phi, dx):
     return phi0_x, phi1_x, phi2_x
 
 
+@njit
 def diff_fx(phi, dx):
     phi0_x = np.zeros(phi.shape)
     phi1_x = np.zeros(phi.shape)
@@ -100,6 +107,7 @@ def diff_fx(phi, dx):
     return phi0_x, phi1_x, phi2_x
 
 
+@njit
 def diff_by(phi, dy):
     phi0_y = np.zeros(phi.shape)
     phi1_y = np.zeros(phi.shape)
@@ -141,6 +149,7 @@ def diff_by(phi, dy):
     return phi0_y, phi1_y, phi2_y
 
 
+@njit
 def diff_fy(phi, dy):
     phi0_y = np.zeros(phi.shape)
     phi1_y = np.zeros(phi.shape)
@@ -183,6 +192,7 @@ def diff_fy(phi, dy):
 
 
 # Compute conditions
+@njit
 def conditions_x(phi):
     cx1 = np.zeros(phi.shape)
     cx2 = np.zeros(phi.shape)
@@ -282,6 +292,7 @@ def conditions_x(phi):
     return cx1, cx2, cx3, cx4, cx5, cx6
 
 
+@njit
 def conditions_y(phi):
     cy1 = np.zeros(phi.shape)
     cy2 = np.zeros(phi.shape)

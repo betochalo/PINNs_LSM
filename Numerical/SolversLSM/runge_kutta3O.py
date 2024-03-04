@@ -1,7 +1,9 @@
 import numpy as np
+from numba import njit
 from Numerical.SolversLSM import eno as eno
 
 
+@njit
 def rk(phi, u, dxb, dxf, dt):
     cx1 = u < 0
 
@@ -13,6 +15,7 @@ def rk(phi, u, dxb, dxf, dt):
     return phi_new
 
 
+@njit
 def tvd_runge_kutta_3o(phi, u, dxb, dxf, dx, dt):
     phi1 = rk(phi, u, dxb, dxf, dt)
     dxb1, dxf1 = eno.eno(phi1, dx)
